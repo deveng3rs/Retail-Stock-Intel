@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "recommended_option_id": {
+      "type": "string",
+      "description": "Must be one of the option_id values in the input. Never invent an option."
+    },
+    "reasoning_summary": {
+      "type": "string",
+      "description": "One or two sentences. If the pick is not the highest net_recovery_inr, say why."
+    },
+    "confidence": {
+      "type": "number",
+      "description": "0 to 1. Lower it when forecast error (mape) is high or inputs look inconsistent."
+    },
+    "requires_human_approval": { "type": "boolean" },
+    "explanation": {
+      "type": "string",
+      "description": "Plain-language explanation for a store manager, in English, using only numbers from the input."
+    },
+    "explanation_local": {
+      "type": "string",
+      "description": "The same explanation in the requested local language."
+    },
+    "staff_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assignee_role": { "type": "string" },
+          "title": { "type": "string" },
+          "steps": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["assignee_role", "title", "steps"]
+      }
+    }
+  },
+  "required": [
+    "recommended_option_id", "reasoning_summary", "confidence",
+    "requires_human_approval", "explanation", "explanation_local", "staff_tasks"
+  ]
+}
