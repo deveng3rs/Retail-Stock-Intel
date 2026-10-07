@@ -1,42 +1,66 @@
 {
   "_contract": {
-    "name": "at_risk_batch",
+    "name": "decision_output",
     "version": "0.1",
-    "producer": "Person A (Data and ML)",
-    "consumer": "Person B (Agents and backend)",
-    "note": "Example values for development only. Real values come from BigQuery."
+    "producer": "Person B (Agents and backend)",
+    "consumer": "Person C (Frontend and pitch)",
+    "note": "Example values for UI development only. The improvement figure here is an illustration, not a result."
   },
-  "generated_at": "2026-10-07T08:00:00+05:30",
-  "batch": {
-    "batch_id": "B-1042",
-    "store_id": "S-A",
-    "store_name": "Store A",
-    "sku_id": "SKU-DAIRY-YOG-400",
-    "sku_name": "Yogurt 400g",
-    "category": "dairy",
-    "quantity_on_hand": 120,
-    "expiry_date": "2026-10-10",
-    "days_to_expiry": 3,
-    "unit_cost_inr": 28.0,
-    "unit_price_inr": 45.0,
-    "forecast": {
-      "method": "bqml_arima_plus",
-      "daily_demand_units": 9.5,
-      "expected_units_sold_before_expiry": 28,
-      "expected_unsold_units": 92,
-      "mape": 0.18
-    },
-    "risk_flag": "overstock_expiry"
-  },
-  "nearby_stores": [
+  "decision_id": "D-2001",
+  "batch_id": "B-1042",
+  "recommended_option_id": "transfer_60_markdown_15",
+  "requires_human_approval": true,
+  "confidence": 0.82,
+  "actions": [
     {
-      "store_id": "S-B",
-      "store_name": "Store B",
-      "distance_km": 2.1,
-      "travel_minutes": 9,
-      "on_hand_units": 6,
-      "forecast_daily_demand_units": 30,
-      "days_of_cover": 0.2
+      "type": "transfer",
+      "from_store_id": "S-A",
+      "to_store_id": "S-B",
+      "sku_id": "SKU-DAIRY-YOG-400",
+      "quantity": 60,
+      "pickup_by": "2026-10-08T09:00:00+05:30",
+      "eta_minutes": 9
+    },
+    {
+      "type": "markdown",
+      "store_id": "S-A",
+      "sku_id": "SKU-DAIRY-YOG-400",
+      "quantity": 60,
+      "discount_pct": 15,
+      "new_price_inr": 38.25,
+      "starts": "2026-10-08T09:00:00+05:30",
+      "ends": "2026-10-10T21:00:00+05:30"
+    },
+    {
+      "type": "rescue_fallback",
+      "store_id": "S-A",
+      "trigger": "days_to_expiry == 0",
+      "expected_units": 20
+    }
+  ],
+  "expected_net_recovery_inr": 3850.0,
+  "baseline_net_recovery_inr": 2142.0,
+  "improvement_pct": 79.7,
+  "explanation": {
+    "language": "en",
+    "text": "Store A will likely sell only 28 of its 120 yogurts before they expire in 3 days, while Store B, 2.1 km away, is nearly out of stock and sells about 30 a day. Moving 60 units to Store B and marking the remaining 60 down 15% recovers more than any single action, and any leftover goes to rescue."
+  },
+  "explanation_local": {
+    "language": "hi",
+    "text": "स्टोर A में दही की 120 इकाइयों में से लगभग 28 ही 3 दिन में बिक पाएंगी। स्टोर B में स्टॉक लगभग खत्म है। 60 इकाइयाँ स्टोर B भेजें और बाकी पर 15% छूट दें।"
+  },
+  "staff_tasks": [
+    {
+      "assignee_role": "Store A manager",
+      "title": "Pack and send 60 yogurts to Store B",
+      "steps": ["Pick the 60 units with the earliest expiry", "Hand over to the driver by 09:00", "Apply the 15% label to the remaining 60 units"],
+      "due": "2026-10-08T09:00:00+05:30"
+    },
+    {
+      "assignee_role": "Store B manager",
+      "title": "Receive 60 yogurts from Store A",
+      "steps": ["Check the expiry dates on arrival", "Shelve at the front of the dairy section"],
+      "due": "2026-10-08T11:00:00+05:30"
     }
   ]
 }
