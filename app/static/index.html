@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retail Stock Intelligence</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #202124; }
+    h1 { color: #1a73e8; font-size: 1.5rem; }
+    .card { border: 1px solid #dadce0; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    .muted { color: #5f6368; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Retail Stock Intelligence</h1>
+  <p class="muted">Hello-world deployment. The app is running if you see the example decision below.</p>
+  <div class="card"><strong>Status:</strong> <span id="status">loading...</span></div>
+  <div class="card"><strong>Recommended option:</strong> <span id="option">-</span>
+    <p id="explanation"></p></div>
+  <script>
+    fetch('/api/demo')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('status').textContent = 'API connected';
+        document.getElementById('option').textContent = d.decision_output.recommended_option_id;
+        document.getElementById('explanation').textContent = d.decision_output.explanation.text;
+      })
+      .catch(() => { document.getElementById('status').textContent = 'API not reachable'; });
+  </script>
+</body>
+</html>

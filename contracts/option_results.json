@@ -1,0 +1,92 @@
+{
+  "_contract": {
+    "name": "option_results",
+    "version": "0.1",
+    "producer": "Person A (Data and ML)",
+    "consumer": "Person B (Agents and backend)",
+    "note": "Example values for UI and prompt development only. They are NOT results. Real values come from the BigQuery calculators."
+  },
+  "batch_id": "B-1042",
+  "currency": "INR",
+  "net_recovery_formula": "revenue + salvage - transfer_cost - handling_cost - promo_cost",
+  "assumptions": {
+    "transfer_cost_inr": 180,
+    "handling_cost_inr": 60,
+    "salvage_value_per_unit_inr": 5
+  },
+  "options": [
+    {
+      "option_id": "hold",
+      "description": "Keep full price at Store A",
+      "units_sold_a": 28,
+      "units_sold_b": 0,
+      "revenue_inr": 1260.0,
+      "transfer_cost_inr": 0,
+      "handling_cost_inr": 0,
+      "promo_cost_inr": 0,
+      "salvage_inr": 0,
+      "units_unsold": 92,
+      "net_recovery_inr": 1260.0
+    },
+    {
+      "option_id": "markdown_15",
+      "description": "15% markdown at Store A (price 38.25)",
+      "units_sold_a": 50,
+      "units_sold_b": 0,
+      "revenue_inr": 1912.5,
+      "transfer_cost_inr": 0,
+      "handling_cost_inr": 0,
+      "promo_cost_inr": 0,
+      "salvage_inr": 0,
+      "units_unsold": 70,
+      "net_recovery_inr": 1912.5
+    },
+    {
+      "option_id": "transfer_60",
+      "description": "Move 60 units to Store B; the rest stay at full price at Store A",
+      "units_sold_a": 28,
+      "units_sold_b": 54,
+      "revenue_inr": 3690.0,
+      "transfer_cost_inr": 180,
+      "handling_cost_inr": 60,
+      "promo_cost_inr": 0,
+      "salvage_inr": 0,
+      "units_unsold": 38,
+      "net_recovery_inr": 3450.0
+    },
+    {
+      "option_id": "transfer_60_markdown_15",
+      "description": "Move 60 units to Store B and mark the remaining 60 down 15% at Store A; unsold units go to rescue",
+      "units_sold_a": 40,
+      "units_sold_b": 54,
+      "revenue_inr": 3960.0,
+      "transfer_cost_inr": 180,
+      "handling_cost_inr": 60,
+      "promo_cost_inr": 0,
+      "salvage_inr": 130,
+      "units_unsold": 26,
+      "net_recovery_inr": 3850.0
+    },
+    {
+      "option_id": "rescue_all",
+      "description": "Send all 120 units to rescue now",
+      "units_sold_a": 0,
+      "units_sold_b": 0,
+      "revenue_inr": 0,
+      "transfer_cost_inr": 0,
+      "handling_cost_inr": 0,
+      "promo_cost_inr": 0,
+      "salvage_inr": 600,
+      "units_unsold": 0,
+      "net_recovery_inr": 600.0
+    }
+  ],
+  "baseline": {
+    "rule": "Fixed 30% markdown when 3 days remain, no transfers",
+    "price_inr": 31.5,
+    "units_sold_a": 68,
+    "revenue_inr": 2142.0,
+    "units_unsold": 52,
+    "net_recovery_inr": 2142.0
+  }
+}

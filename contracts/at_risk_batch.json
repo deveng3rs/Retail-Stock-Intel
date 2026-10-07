@@ -1,0 +1,42 @@
+{
+  "_contract": {
+    "name": "at_risk_batch",
+    "version": "0.1",
+    "producer": "Person A (Data and ML)",
+    "consumer": "Person B (Agents and backend)",
+    "note": "Example values for development only. Real values come from BigQuery."
+  },
+  "generated_at": "2026-10-07T08:00:00+05:30",
+  "batch": {
+    "batch_id": "B-1042",
+    "store_id": "S-A",
+    "store_name": "Store A",
+    "sku_id": "SKU-DAIRY-YOG-400",
+    "sku_name": "Yogurt 400g",
+    "category": "dairy",
+    "quantity_on_hand": 120,
+    "expiry_date": "2026-10-10",
+    "days_to_expiry": 3,
+    "unit_cost_inr": 28.0,
+    "unit_price_inr": 45.0,
+    "forecast": {
+      "method": "bqml_arima_plus",
+      "daily_demand_units": 9.5,
+      "expected_units_sold_before_expiry": 28,
+      "expected_unsold_units": 92,
+      "mape": 0.18
+    },
+    "risk_flag": "overstock_expiry"
+  },
+  "nearby_stores": [
+    {
+      "store_id": "S-B",
+      "store_name": "Store B",
+      "distance_km": 2.1,
+      "travel_minutes": 9,
+      "on_hand_units": 6,
+      "forecast_daily_demand_units": 30,
+      "days_of_cover": 0.2
+    }
+  ]
+}
